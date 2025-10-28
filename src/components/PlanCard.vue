@@ -1,0 +1,56 @@
+﻿<template>
+  <div class="border rounded-lg p-6 text-center transition-shadow hover:shadow-lg" :class="cardClasses">
+    <h3 class="text-2xl font-bold mb-2" :class="titleClasses">{{ plan.name }}</h3>
+
+    <div class="my-4">
+      <span class="text-4xl font-extrabold" :class="priceClasses">{{ plan.price }}</span>
+      <span :class="plan.highlight ? 'text-gray-300' : 'text-gray-500'"> COP/mes</span>
+    </div>
+
+    <ul class="space-y-3" :class="featureListClasses">
+      <li v-for="feature in plan.features" :key="feature">
+        ✔ {{ feature }}
+      </li>
+    </ul>
+
+    <button class="mt-8 w-full font-bold py-3 px-6 rounded-lg transition-transform hover:scale-105" :class="buttonClasses">
+      {{ plan.cta }}
+    </button>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue';
+
+const props = defineProps<{
+  plan: {
+    name: string;
+    price: string;
+    features: string[];
+    cta: string;
+    highlight?: boolean;
+  }
+}>();
+
+const cardClasses = computed(() =>
+  props.plan.highlight ? 'bg-gray-800 text-white shadow-xl scale-105' : 'bg-white'
+);
+
+const titleClasses = computed(() =>
+  props.plan.highlight ? 'text-white' : 'text-gray-800'
+);
+
+const priceClasses = computed(() =>
+  props.plan.highlight ? 'text-white' : 'text-gray-900'
+);
+
+const featureListClasses = computed(() =>
+  props.plan.highlight ? 'text-gray-200' : 'text-gray-600'
+);
+
+const buttonClasses = computed(() =>
+  props.plan.highlight
+    ? 'bg-blue-600 text-white hover:bg-blue-700'
+    : 'bg-blue-100 text-blue-600 hover:bg-blue-200'
+);
+</script>
