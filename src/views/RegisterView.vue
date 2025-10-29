@@ -38,6 +38,19 @@
         />
       </div>
       <div>
+        <label for="userName" class="block text-sm font-medium text-gray-700">
+          Nombre de usuario
+        </label>
+        <input
+          id="userName"
+          v-model="userName"
+          type="text"
+          required
+          placeholder=""
+          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+      <div>
         <label for="email" class="block text-sm font-medium text-gray-700">
           Correo Electrónico
         </label>
@@ -103,13 +116,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'; // <-- Importa 'computed'
-import { RouterLink } from 'vue-router';
+import { ref, computed } from 'vue';
+import { RouterLink, useRouter } from 'vue-router'; // 1. Importa useRouter
+import apiClient from '@/services/api'; // 2. Importa nuestro cliente API
+
+const router = useRouter(); // 3. Obtén la instancia del router
 
 // Variables reactivas para los campos del formulario
 
 const name = ref('');
 const lastName = ref('');
+const userName = ref('');
 const email = ref('');
 const password = ref('');
 const passwordConfirm = ref(''); // <-- Nueva variable para confirmar contraseña
@@ -170,26 +187,28 @@ const strengthTextClasses = computed(() => {
 // --- Fin de la lógica del medidor ---
 
 const handleRegister = async () => {
-  // Primero, validamos que las contraseñas coincidan antes de enviar
   if (password.value !== passwordConfirm.value) {
     alert('Las contraseñas no coinciden. Por favor, verifica.');
     return; // Detiene la ejecución si no coinciden
   }
 
-  console.log('Datos del formulario:', {
-    name: name.value,
-    lastName: lastName.value,
-    email: email.value,
-    password: password.value,
-  });
-
   const payload = {
     name: name.value,
     lastName: lastName.value,
+    userName: userName.value,
     email: email.value,
     password: password.value,
   };
 
-  // TODO: Llamar al endpoint de la API con Axios
+  // 4. Implementamos la llamada a la API
+  try {
+    const response = await apiClient.post('/Auth/register', payload);
+    console.log('Registro exitoso:', response.data);
+    alert('¡Cuenta creada exitosamente! Ahora serás redirigido para iniciar sesión.');
+    router.push('/login');
+  } catch (error) {
+    console.error('Error en el registro:', error);
+    alert('Ocurrió un error al crear la cuenta. Es posible que el correo o el nombre de usuario ya existan.');
+  }
 };
 </script>

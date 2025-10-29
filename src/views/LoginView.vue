@@ -12,15 +12,15 @@
 
     <form @submit.prevent="handleLogin" class="space-y-6">
       <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">
-          Correo Electrónico
+        <label for="identifier" class="block text-sm font-medium text-gray-700">
+          Correo Electrónico o Nombre de Usuario
         </label>
         <input
-          id="email"
-          v-model="email"
-          type="email"
+          id="identifier"
+          v-model="identifier"
+          type="text"
           required
-          placeholder="tu@correo.com"
+          placeholder="tu@correo.com o tu usuario"
           class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
         />
       </div>
@@ -58,37 +58,43 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
+import apiClient from '@/services/api';
 
-// Variables reactivas para los campos del formulario
-const email = ref('');
+const router = useRouter();
+
+// Usamos 'identifier' para capturar el email o el username
+const identifier = ref('');
 const password = ref('');
 
 const handleLogin = async () => {
-  // 1. Verificamos los datos capturados
-  console.log('Intentando iniciar sesión con:', {
-    email: email.value,
-    password: password.value,
-  });
+  let payload = {};
 
-  // 2. Preparamos el payload para la API
-  const payload = {
-    email: email.value,
-    password: password.value,
-  };
+  // Detectamos si el usuario ingresó un email o un username
+  if (identifier.value.includes('@')) {
+    payload = {
+      email: identifier.value,
+      password: password.value,
+    };
+  } else {
+    payload = {
+      userName: identifier.value,
+      password: password.value,
+    };
+  }
 
-  // 3. TODO: Llamar al endpoint de la API con Axios para autenticar
-  //    y, si es exitoso, guardar el token JWT y redirigir al dashboard.
-  //
-  //    Ejemplo:
-  //    try {
-  //      const response = await axios.post('/api/Auth/login', payload);
-  //      const token = response.data.token;
-  //      // Guardar token en Pinia/localStorage
-  //      // router.push('/dashboard');
-  //    } catch (error) {
-  //      console.error('Error de autenticación:', error);
-  //      // Mostrar mensaje de error (ej. "Credenciales incorrectas")
-  //    }
+  try {
+    const response = await apiClient.post('/Auth/login', payload);
+    console.log('Login exitoso:', response.data);
+
+    // TODO: Guardar el token JWT que devuelva el backend
+    // const token = response.data.token;
+    // localStorage.setItem('authToken', token);
+
+    router.push('/dashboard');
+  } catch (error) {
+    console.error('Error de autenticación:', error);
+    alert('Credenciales incorrectas. Por favor, intenta de nuevo.');
+  }
 };
 </script>
