@@ -59,16 +59,19 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
+import { useToast } from 'vue-toastification';
 import apiClient from '@/services/api';
+import { authService } from '@/services/auth';
 
 const router = useRouter();
+const toast = useToast();
 
 // Usamos 'identifier' para capturar el email o el username
 const identifier = ref('');
 const password = ref('');
 
 const handleLogin = async () => {
-  let payload = {};
+  let payload;
 
   // Detectamos si el usuario ingresó un email o un username
   if (identifier.value.includes('@')) {
@@ -87,14 +90,15 @@ const handleLogin = async () => {
     const response = await apiClient.post('/Auth/login', payload);
     console.log('Login exitoso:', response.data);
 
-    // TODO: Guardar el token JWT que devuelva el backend
-    // const token = response.data.token;
-    // localStorage.setItem('authToken', token);
+    // Guardar el token JWT usando el servicio de autenticación
+    const token = response.data.token;
+    authService.setToken(token);
 
+    toast.success('¡Bienvenido de nuevo!');
     router.push('/dashboard');
   } catch (error) {
     console.error('Error de autenticación:', error);
-    alert('Credenciales incorrectas. Por favor, intenta de nuevo.');
+    toast.error('Credenciales incorrectas. Por favor, intenta de nuevo.');
   }
 };
 </script>

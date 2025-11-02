@@ -1,4 +1,4 @@
-﻿<template>
+﻿﻿<template>
   <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
     <div class="text-center">
       <h1 class="text-3xl font-bold text-gray-800">Crea tu Cuenta</h1>
@@ -117,10 +117,12 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { RouterLink, useRouter } from 'vue-router'; // 1. Importa useRouter
-import apiClient from '@/services/api'; // 2. Importa nuestro cliente API
+import { RouterLink, useRouter } from 'vue-router';
+import { useToast } from 'vue-toastification';
+import apiClient from '@/services/api';
 
-const router = useRouter(); // 3. Obtén la instancia del router
+const router = useRouter();
+const toast = useToast();
 
 // Variables reactivas para los campos del formulario
 
@@ -188,7 +190,7 @@ const strengthTextClasses = computed(() => {
 
 const handleRegister = async () => {
   if (password.value !== passwordConfirm.value) {
-    alert('Las contraseñas no coinciden. Por favor, verifica.');
+    toast.error('Las contraseñas no coinciden. Por favor, verifica.');
     return; // Detiene la ejecución si no coinciden
   }
 
@@ -204,11 +206,11 @@ const handleRegister = async () => {
   try {
     const response = await apiClient.post('/Auth/register', payload);
     console.log('Registro exitoso:', response.data);
-    alert('¡Cuenta creada exitosamente! Ahora serás redirigido para iniciar sesión.');
+    toast.success('¡Cuenta creada exitosamente! Ahora serás redirigido para iniciar sesión.');
     router.push('/login');
   } catch (error) {
     console.error('Error en el registro:', error);
-    alert('Ocurrió un error al crear la cuenta. Es posible que el correo o el nombre de usuario ya existan.');
+    toast.error('Ocurrió un error al crear la cuenta. Es posible que el correo o el nombre de usuario ya existan.');
   }
 };
 </script>
