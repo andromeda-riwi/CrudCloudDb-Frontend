@@ -1,11 +1,11 @@
-﻿import apiClient from './api';
+﻿﻿import apiClient from './api';
 
 export interface Database {
-  id: number;
+  id: string;
   name: string;
-  engineType: string;
+  engine: string;
   status: string;
-  createdAt: string;
+  createdAt?: string;
   host?: string;
   port?: number;
   username?: string;
@@ -21,8 +21,7 @@ export interface DatabaseCredentials {
 }
 
 export interface CreateDatabaseRequest {
-  name: string;
-  engineType: string; // 'MySQL', 'PostgreSQL', 'MongoDB'
+  engine: string; // 'MySQL', 'PostgreSQL', 'MongoDB'
 }
 
 export interface DashboardStats {
@@ -38,16 +37,29 @@ export const databaseService = {
   // Obtener todas las bases de datos del usuario
   async getUserDatabases(): Promise<Database[]> {
     try {
-      const response = await apiClient.get('/Databases');
+      console.log('getUserDatabases - iniciando petición GET /Databases');
+      const response = await apiClient.get('/Databases', { timeout: 10000 }); // 10 segundos timeout
+      console.log('getUserDatabases - respuesta recibida:', response.data);
       return response.data;
-    } catch (error) {
-      console.warn('Error obteniendo bases de datos:', error);
+    } catch (error: any) {
+      console.error('Error obteniendo bases de datos:', {
+        message: error.message,
+        code: error.code,
+        response: error.response?.data,
+        status: error.response?.status
+      });
+
+      // Si es un error de timeout o conexión, podría ser problema del backend
+      if (error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT') {
+        console.error('⚠️ El backend no responde o está tardando demasiado');
+      }
+
       return [];
     }
   },
 
   // Obtener una base de datos por ID
-  async getDatabaseById(id: number): Promise<Database> {
+  async getDatabaseById(id: string): Promise<Database> {
     const response = await apiClient.get(`/Databases/${id}`);
     return response.data;
   },
@@ -59,12 +71,12 @@ export const databaseService = {
   },
 
   // Eliminar una base de datos
-  async deleteDatabase(id: number): Promise<void> {
+  async deleteDatabase(id: string): Promise<void> {
     await apiClient.delete(`/Databases/${id}`);
   },
 
   // Obtener credenciales de una base de datos
-  async getDatabaseCredentials(id: number): Promise<DatabaseCredentials> {
+  async getDatabaseCredentials(id: string): Promise<DatabaseCredentials> {
     try {
       const response = await apiClient.get(`/Databases/${id}/credentials`);
       return response.data;
@@ -97,7 +109,7 @@ export const databaseService = {
         const databasesByEngine: { [key: string]: number } = {};
 
         databases.forEach(db => {
-          databasesByEngine[db.engineType] = (databasesByEngine[db.engineType] || 0) + 1;
+          databasesByEngine[db.engine] = (databasesByEngine[db.engine] || 0) + 1;
         });
 
         return {

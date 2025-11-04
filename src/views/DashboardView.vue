@@ -1,4 +1,4 @@
-﻿﻿<template>
+﻿﻿﻿<template>
   <div class="container mx-auto">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-4xl font-bold text-gray-800">Dashboard</h1>
@@ -70,7 +70,7 @@
               <div class="text-sm font-medium text-gray-900">{{ db.name }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-800">{{ db.engineType }}</div>
+              <div class="text-sm text-gray-800">{{ db.engine }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
               <span
@@ -132,6 +132,48 @@ import { databaseService } from '@/services/database';
 import type { Database, DatabaseCredentials, CreateDatabaseRequest } from '@/services/database';
 
 const toast = useToast();
+
+// Helper function to extract error message
+const getErrorMessage = (error: any, defaultMessage: string): string => {
+  console.log('getErrorMessage - error object:', error);
+
+  if (!error) {
+    console.log('getErrorMessage - no error, using default');
+    return defaultMessage;
+  }
+
+  // Check if it's an Axios error with response
+  if (error.response?.data) {
+    console.log('getErrorMessage - response.data:', error.response.data);
+
+    // Check for message field
+    if (error.response.data.message) {
+      console.log('getErrorMessage - found message:', error.response.data.message);
+      return String(error.response.data.message);
+    }
+
+    // Check if data itself is a string
+    if (typeof error.response.data === 'string' && error.response.data.trim()) {
+      console.log('getErrorMessage - data is string:', error.response.data);
+      return error.response.data;
+    }
+
+    // Try to get any error property from data
+    if (error.response.data.error) {
+      console.log('getErrorMessage - found error:', error.response.data.error);
+      return String(error.response.data.error);
+    }
+  }
+
+  // Check for error message property
+  if (error.message && error.message !== 'Network Error') {
+    console.log('getErrorMessage - found error.message:', error.message);
+    return error.message;
+  }
+
+  console.log('getErrorMessage - using default message:', defaultMessage);
+  return defaultMessage;
+};
 
 // State
 const isLoadingStats = ref(true);
@@ -197,16 +239,11 @@ const loadDashboardStats = async () => {
     ];
   } catch (error) {
     console.error('Error loading stats:', error);
-    // No mostrar toast si es un error 404 (endpoint no implementado)
-    const status = error && typeof error === 'object' && 'response' in error
-      ? (error.response as any)?.status
-      : null;
+    // No mostrar toast si es un error 404 o 405 (endpoint no implementado)
+    const status = (error as any)?.response?.status;
 
-    if (status !== 404) {
-      const message = error && typeof error === 'object' && 'response' in error
-        ? (error.response as any)?.data?.message
-        : 'Error al cargar las estadísticas';
-      toast.error(message);
+    if (status !== 404 && status !== 405) {
+      toast.error(getErrorMessage(error, 'Error al cargar las estadísticas'));
     }
   } finally {
     isLoadingStats.value = false;
@@ -220,16 +257,11 @@ const loadDatabases = async () => {
     databases.value = await databaseService.getUserDatabases();
   } catch (error) {
     console.error('Error loading databases:', error);
-    // No mostrar toast si es un error 404 (endpoint no implementado)
-    const status = error && typeof error === 'object' && 'response' in error
-      ? (error.response as any)?.status
-      : null;
+    // No mostrar toast si es un error 404 o 405 (endpoint no implementado)
+    const status = (error as any)?.response?.status;
 
-    if (status !== 404) {
-      const message = error && typeof error === 'object' && 'response' in error
-        ? (error.response as any)?.data?.message
-        : 'Error al cargar las bases de datos';
-      toast.error(message);
+    if (status !== 404 && status !== 405) {
+      toast.error(getErrorMessage(error, 'Error al cargar las bases de datos'));
     }
   } finally {
     isLoadingDatabases.value = false;
@@ -247,26 +279,20 @@ const handleCreateDatabase = async (data: CreateDatabaseRequest) => {
     await Promise.all([loadDashboardStats(), loadDatabases()]);
   } catch (error) {
     console.error('Error creating database:', error);
-    const message = error && typeof error === 'object' && 'response' in error
-      ? (error.response as any)?.data?.message
-      : 'Error al crear la base de datos';
-    toast.error(message);
+    toast.error(getErrorMessage(error, 'Error al crear la base de datos'));
     createModalRef.value?.resetLoading();
   }
 };
 
 // View credentials
-const viewCredentials = async (databaseId: number) => {
+const viewCredentials = async (databaseId: string) => {
   try {
     isCredentialsModalOpen.value = true;
     isLoadingCredentials.value = true;
     currentCredentials.value = await databaseService.getDatabaseCredentials(databaseId);
   } catch (error) {
     console.error('Error loading credentials:', error);
-    const message = error && typeof error === 'object' && 'response' in error
-      ? (error.response as any)?.data?.message
-      : 'Error al cargar las credenciales';
-    toast.error(message);
+    toast.error(getErrorMessage(error, 'Error al cargar las credenciales'));
     closeCredentialsModal();
   } finally {
     isLoadingCredentials.value = false;
@@ -274,7 +300,7 @@ const viewCredentials = async (databaseId: number) => {
 };
 
 // Delete database
-const confirmDelete = async (databaseId: number, databaseName: string) => {
+const confirmDelete = async (databaseId: string, databaseName: string) => {
   if (!confirm(`¿Estás seguro de que deseas eliminar la base de datos "${databaseName}"?\n\nEsta acción no se puede deshacer.`)) {
     return;
   }
@@ -287,10 +313,7 @@ const confirmDelete = async (databaseId: number, databaseName: string) => {
     await Promise.all([loadDashboardStats(), loadDatabases()]);
   } catch (error) {
     console.error('Error deleting database:', error);
-    const message = error && typeof error === 'object' && 'response' in error
-      ? (error.response as any)?.data?.message
-      : 'Error al eliminar la base de datos';
-    toast.error(message);
+    toast.error(getErrorMessage(error, 'Error al eliminar la base de datos'));
   }
 };
 
@@ -319,7 +342,8 @@ const getStatusClass = (status: string) => {
   return statusMap[status] || 'bg-gray-100 text-gray-800';
 };
 
-const formatDate = (dateString: string) => {
+const formatDate = (dateString: string | undefined) => {
+  if (!dateString) return 'N/A';
   const date = new Date(dateString);
   return date.toLocaleDateString('es-CO', {
     year: 'numeric',

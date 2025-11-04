@@ -1,4 +1,4 @@
-﻿<template>
+﻿﻿<template>
   <Teleport to="body">
     <Transition name="modal">
       <div v-if="isOpen" class="fixed inset-0 z-50 overflow-y-auto" @click.self="closeModal">
@@ -21,25 +21,6 @@
             <!-- Form -->
             <form @submit.prevent="handleSubmit">
               <div class="space-y-4">
-                <!-- Nombre de la base de datos -->
-                <div>
-                  <label for="dbName" class="block text-sm font-medium text-gray-700 mb-1">
-                    Nombre de la Base de Datos
-                  </label>
-                  <input
-                    id="dbName"
-                    v-model="formData.name"
-                    type="text"
-                    required
-                    placeholder="ej: mi-proyecto-db"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    :disabled="isLoading"
-                  />
-                  <p class="mt-1 text-xs text-gray-500">
-                    Solo letras, números y guiones. Sin espacios.
-                  </p>
-                </div>
-
                 <!-- Motor de Base de Datos -->
                 <div>
                   <label for="dbEngine" class="block text-sm font-medium text-gray-700 mb-1">
@@ -47,7 +28,7 @@
                   </label>
                   <select
                     id="dbEngine"
-                    v-model="formData.engineType"
+                    v-model="formData.engine"
                     required
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     :disabled="isLoading"
@@ -115,16 +96,14 @@ const emit = defineEmits<Emits>();
 
 const isLoading = ref(false);
 const formData = ref<CreateDatabaseRequest>({
-  name: '',
-  engineType: ''
+  engine: ''
 });
 
 // Resetear el formulario cuando se cierre el modal
 watch(() => props.isOpen, (newValue) => {
   if (!newValue) {
     formData.value = {
-      name: '',
-      engineType: ''
+      engine: ''
     };
     isLoading.value = false;
   }
@@ -139,12 +118,6 @@ const closeModal = () => {
 const handleSubmit = () => {
   if (isLoading.value) return;
 
-  // Validar el nombre (solo letras, números y guiones)
-  const namePattern = /^[a-zA-Z0-9-]+$/;
-  if (!namePattern.test(formData.value.name)) {
-    alert('El nombre solo puede contener letras, números y guiones, sin espacios.');
-    return;
-  }
 
   isLoading.value = true;
   emit('submit', { ...formData.value });
