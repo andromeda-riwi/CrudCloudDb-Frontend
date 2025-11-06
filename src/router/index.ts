@@ -14,31 +14,31 @@ const router = createRouter({
       path: '/',
       name: 'landing',
       component: LandingView,
-      meta: { requiresGuest: true } // Solo para usuarios no autenticados
+      meta: { title: 'Inicio' }
     },
     {
       path: '/login',
       name: 'login',
       component: LoginView,
-      meta: { layout: 'AuthLayout', requiresGuest: true } // Solo para usuarios no autenticados
+      meta: { layout: 'AuthLayout', requiresGuest: true, title: 'Iniciar sesión' }
     },
     {
       path: '/register',
       name: 'register',
       component: RegisterView,
-      meta: { layout: 'AuthLayout', requiresGuest: true } // Solo para usuarios no autenticados
+      meta: { layout: 'AuthLayout', requiresGuest: true, title: 'Registro' }
     },
     {
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView,
-      meta: { layout: 'AppLayout', requiresAuth: true } // Requiere autenticación
+      meta: { layout: 'AppLayout', requiresAuth: true, title: 'Panel de control' }
     },
     {
       path: '/plans',
       name: 'plans',
       component: PlansView,
-      meta: { layout: 'AppLayout', requiresAuth: true } // Requiere autenticación
+      meta: { layout: 'AppLayout', requiresAuth: true, title: 'Planes' }
     }
   ]
 })
@@ -47,6 +47,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isAuthenticated = authService.isAuthenticated();
   const toast = useToast();
+
+  // Actualizar el título del documento
+  const pageTitle = to.meta.title as string || 'ApexDB';
+  document.title = `ApexDB | ${pageTitle}`;
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     // Ruta protegida, usuario no autenticado → mostrar toast y redirigir a login

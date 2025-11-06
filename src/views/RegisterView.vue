@@ -1,10 +1,10 @@
 ﻿﻿<template>
   <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
     <div class="text-center">
-      <h1 class="text-3xl font-bold text-gray-800">Crea tu Cuenta</h1>
+      <h1 class="text-3xl font-bold text-gray-900">Crea tu Cuenta</h1>
       <p class="mt-2 text-gray-500">
         ¿Ya tienes una?
-        <RouterLink to="/login" class="font-medium text-blue-600 hover:underline">
+        <RouterLink to="/login" class="font-medium text-[#e1bc47] hover:text-[#f0d470]">
           Inicia sesión
         </RouterLink>
       </p>
@@ -21,7 +21,7 @@
           type="text"
           required
           placeholder=""
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
       <div>
@@ -34,7 +34,7 @@
           type="text"
           required
           placeholder=""
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
       <div>
@@ -47,7 +47,7 @@
           type="text"
           required
           placeholder=""
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
       <div>
@@ -60,7 +60,7 @@
           type="email"
           required
           placeholder="tu@correo.com"
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
 
@@ -74,7 +74,7 @@
           type="password"
           required
           placeholder="••••••••"
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
 
@@ -96,7 +96,7 @@
           type="password"
           required
           placeholder="••••••••"
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
         <p v-if="passwordsDoNotMatch" class="text-xs text-red-500 mt-1">
           Las contraseñas no coinciden.
@@ -105,7 +105,7 @@
       <div>
         <button
           type="submit"
-          class="w-full px-4 py-3 mt-4 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400"
+          class="w-full px-4 py-3 mt-4 font-semibold text-black bg-[#e1bc47] rounded-md hover:bg-[#f0d470] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#e1bc47] disabled:bg-gray-400"
           :disabled="passwordsDoNotMatch"
         >
           Registrarse

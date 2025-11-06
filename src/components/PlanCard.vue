@@ -33,15 +33,15 @@ const props = defineProps<{
 }>();
 
 const cardClasses = computed(() =>
-  props.plan.highlight ? 'bg-gray-800 text-white shadow-xl scale-105' : 'bg-white'
+  props.plan.highlight ? 'bg-black text-white shadow-xl scale-105 border-[#e1bc47]' : 'bg-white'
 );
 
 const titleClasses = computed(() =>
-  props.plan.highlight ? 'text-white' : 'text-gray-800'
+  props.plan.highlight ? 'text-[#e1bc47]' : 'text-gray-900'
 );
 
 const priceClasses = computed(() =>
-  props.plan.highlight ? 'text-white' : 'text-gray-900'
+  props.plan.highlight ? 'text-[#e1bc47]' : 'text-gray-900'
 );
 
 const featureListClasses = computed(() =>
@@ -50,7 +50,7 @@ const featureListClasses = computed(() =>
 
 const buttonClasses = computed(() =>
   props.plan.highlight
-    ? 'bg-blue-600 text-white hover:bg-blue-700'
-    : 'bg-blue-100 text-blue-600 hover:bg-blue-200'
+    ? 'bg-[#e1bc47] text-black hover:bg-[#f0d470]'
+    : 'bg-gray-100 text-gray-900 hover:bg-gray-200 border border-[#e1bc47]'
 );
 </script>

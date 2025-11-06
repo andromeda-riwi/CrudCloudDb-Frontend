@@ -1,4 +1,11 @@
-﻿export const authService = {
+﻿interface UserData {
+  userName?: string;
+  email?: string;
+  userId?: string;
+  name?: string;
+}
+
+export const authService = {
   getToken(): string | null {
     return localStorage.getItem('authToken');
   },
@@ -13,6 +20,43 @@
 
   logout(): void {
     localStorage.removeItem('authToken');
+  },
+
+  // Decodificar el JWT y obtener los datos del usuario
+  getUserData(): UserData | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      // Decodificar el payload del JWT (parte media del token)
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+
+      const payload = JSON.parse(jsonPayload);
+
+      // Los datos pueden estar en diferentes propiedades según cómo el backend configure el JWT
+      return {
+        userName: payload.userName || payload.unique_name || payload.sub,
+        email: payload.email,
+        userId: payload.userId || payload.nameid,
+        name: payload.name || payload.given_name
+      };
+    } catch (error) {
+      console.error('Error al decodificar el token:', error);
+      return null;
+    }
+  },
+
+  // Obtener el nombre del usuario para mostrarlo
+  getUserName(): string {
+    const userData = this.getUserData();
+    return userData?.name || userData?.userName || 'Usuario';
   }
 };
 
