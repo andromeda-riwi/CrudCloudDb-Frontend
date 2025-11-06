@@ -1,10 +1,10 @@
-﻿﻿﻿<template>
+﻿<template>
   <div class="container mx-auto">
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-4xl font-bold text-gray-800">Dashboard</h1>
+      <h1 class="text-4xl font-bold text-gray-900">Dashboard</h1>
       <button
         @click="openCreateModal"
-        class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+        class="bg-[#e1bc47] text-black font-bold py-2 px-4 rounded-lg hover:bg-[#f0d470] transition-colors"
       >
         + Crear Base de Datos
       </button>
@@ -12,7 +12,7 @@
 
     <!-- Loading State -->
     <div v-if="isLoadingStats" class="flex justify-center items-center py-12">
-      <svg class="animate-spin h-12 w-12 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <svg class="animate-spin h-12 w-12 text-[#e1bc47]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
       </svg>
@@ -29,11 +29,11 @@
         />
       </div>
 
-      <h2 class="text-2xl font-bold text-gray-800 mb-4">Mis Bases de Datos</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Mis Bases de Datos</h2>
 
       <!-- Loading databases -->
       <div v-if="isLoadingDatabases" class="bg-white p-12 rounded-lg shadow text-center">
-        <svg class="animate-spin h-10 w-10 text-blue-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <svg class="animate-spin h-10 w-10 text-[#e1bc47] mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
         </svg>
@@ -46,7 +46,7 @@
         <p class="mt-2 text-gray-500">¡Crea tu primera base de datos para empezar a gestionar tus proyectos!</p>
         <button
           @click="openCreateModal"
-          class="mt-6 bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
+          class="mt-6 bg-[#e1bc47] text-black font-bold py-3 px-6 rounded-lg hover:bg-[#f0d470] transition-colors"
         >
           Crear mi primera base de datos
         </button>
@@ -86,7 +86,7 @@
             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
               <button
                 @click="viewCredentials(db.id)"
-                class="text-indigo-600 hover:text-indigo-900 mr-4"
+                class="text-[#e1bc47] hover:text-[#f0d470] mr-4"
                 :disabled="db.status !== 'Active'"
               >
                 Credenciales

@@ -1,4 +1,4 @@
-﻿﻿<template>
+﻿<template>
   <Teleport to="body">
     <Transition name="modal">
       <div v-if="isOpen" class="fixed inset-0 z-50 overflow-y-auto" @click.self="closeModal">
@@ -30,19 +30,22 @@
                     id="dbEngine"
                     v-model="formData.engine"
                     required
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e1bc47] focus:border-transparent"
                     :disabled="isLoading"
                   >
                     <option value="" disabled>Selecciona un motor</option>
                     <option value="MySQL">MySQL</option>
                     <option value="PostgreSQL">PostgreSQL</option>
                     <option value="MongoDB">MongoDB</option>
+                    <option value="SQLServer">SQL Server</option>
+                    <option value="Redis">Redis</option>
+                    <option value="Cassandra">Cassandra</option>
                   </select>
                 </div>
 
                 <!-- Información adicional -->
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                  <p class="text-sm text-blue-800">
+                <div class="bg-yellow-50 border border-[#e1bc47] rounded-lg p-3">
+                  <p class="text-sm text-gray-800">
                     <strong>Nota:</strong> La base de datos se creará automáticamente y recibirás las credenciales de acceso una vez completado el proceso.
                   </p>
                 </div>
@@ -60,10 +63,10 @@
                 </button>
                 <button
                   type="submit"
-                  class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  class="px-6 py-2 bg-[#e1bc47] text-black rounded-lg hover:bg-[#f0d470] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                   :disabled="isLoading"
                 >
-                  <svg v-if="isLoading" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <svg v-if="isLoading" class="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>

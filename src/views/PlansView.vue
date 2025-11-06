@@ -1,6 +1,6 @@
-﻿<template>
+﻿﻿<template>
   <div class="container mx-auto">
-    <h1 class="text-4xl font-bold text-center mb-4 text-gray-800">Elige el Plan Perfecto para Ti</h1>
+    <h1 class="text-4xl font-bold text-center mb-4 text-gray-900">Elige el Plan Perfecto para Ti</h1>
     <p class="text-lg text-center text-gray-500 mb-12">
       Comienza gratis y escala a medida que tu proyecto crece.
     </p>

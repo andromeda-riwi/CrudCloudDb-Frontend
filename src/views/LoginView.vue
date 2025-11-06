@@ -1,10 +1,10 @@
 ﻿<template>
   <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
     <div class="text-center">
-      <h1 class="text-3xl font-bold text-gray-800">Inicia Sesión</h1>
+      <h1 class="text-3xl font-bold text-gray-900">Inicia Sesión</h1>
       <p class="mt-2 text-gray-500">
         ¿Aún no tienes una cuenta?
-        <RouterLink to="/register" class="font-medium text-blue-600 hover:underline">
+        <RouterLink to="/register" class="font-medium text-[#e1bc47] hover:text-[#f0d470]">
           Regístrate gratis
         </RouterLink>
       </p>
@@ -21,7 +21,7 @@
           type="text"
           required
           placeholder="tu@correo.com o tu usuario"
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
 
@@ -30,7 +30,7 @@
           <label for="password" class="block text-sm font-medium text-gray-700">
             Contraseña
           </label>
-          <a href="#" class="text-sm text-blue-600 hover:underline">
+          <a href="#" class="text-sm text-[#e1bc47] hover:text-[#f0d470]">
             ¿Olvidaste tu contraseña?
           </a>
         </div>
@@ -40,14 +40,14 @@
           type="password"
           required
           placeholder="••••••••"
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
 
       <div>
         <button
           type="submit"
-          class="w-full px-4 py-2 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          class="w-full px-4 py-2 font-semibold text-black bg-[#e1bc47] rounded-md hover:bg-[#f0d470] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#e1bc47]"
         >
           Entrar
         </button>
