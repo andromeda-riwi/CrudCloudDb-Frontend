@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@theme {
+  /* Colores corporativos de ApexDB */
+  --color-gold: #e1bc47;
+  --color-gold-light: #f0d470;
+}
+
+/* Habilitar dark mode con selector de clase */
+@variant dark (&:where(.dark, .dark *));
+

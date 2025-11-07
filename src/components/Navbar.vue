@@ -1,5 +1,5 @@
 ﻿<template>
-  <nav class="sticky top-0 z-50 bg-black shadow-md">
+  <nav class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <!-- Logo y botón Home -->
@@ -11,6 +11,9 @@
 
         <!-- Botones de navegación -->
         <div class="flex items-center space-x-4">
+          <!-- Dark Mode Toggle -->
+          <DarkModeToggle />
+
           <template v-if="!isAuthenticated && shouldShowAuthButtons">
             <!-- Usuario NO autenticado - Mostrar solo si NO está en login/register -->
             <RouterLink
@@ -21,7 +24,7 @@
             </RouterLink>
             <RouterLink
               to="/login"
-              class="px-4 py-2 text-sm font-medium text-black bg-[#e1bc47] rounded-md hover:bg-[#f0d470] transition-colors"
+              class="px-4 py-2 text-sm font-medium text-black dark:text-black bg-[#e1bc47] rounded-md hover:bg-[#f0d470] transition-colors"
             >
               Iniciar Sesión
             </RouterLink>
@@ -29,7 +32,7 @@
 
           <template v-else-if="isAuthenticated">
             <!-- Usuario autenticado -->
-            <span class="text-sm font-medium text-[#e1bc47]">
+            <span class="text-sm font-medium text-[#e1bc47] dark:text-[#f0d470]">
               Hola, {{ userName }}
             </span>
             <button
@@ -50,6 +53,7 @@ import { RouterLink, useRouter, useRoute } from 'vue-router';
 import { computed } from 'vue';
 import { useToast } from 'vue-toastification';
 import { authService } from '@/services/auth';
+import DarkModeToggle from './DarkModeToggle.vue';
 
 const router = useRouter();
 const route = useRoute();

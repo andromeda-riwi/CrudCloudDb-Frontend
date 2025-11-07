@@ -5,13 +5,20 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import AuthLayout from './layouts/AuthLayout.vue';
 import AppLayout from './layouts/AppLayout.vue';
 import { RouterView } from 'vue-router';
+import { useDarkMode } from './composables/useDarkMode';
 
 const route = useRoute();
+
+// Inicializar tema al montar la aplicación
+const { initTheme } = useDarkMode();
+onMounted(() => {
+  initTheme();
+});
 
 // Mapeo de nombres de layout a componentes reales
 const layouts = {

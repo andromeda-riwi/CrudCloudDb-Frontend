@@ -1,9 +1,9 @@
 ﻿<template>
-  <div class="min-h-screen bg-white text-gray-800">
+  <div class="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300">
     <!-- Navbar -->
     <Navbar />
 
-    <section class="bg-gradient-to-br from-black to-gray-900">
+    <section class="bg-gradient-to-br from-black to-gray-900 dark:from-gray-900 dark:to-black transition-colors duration-300">
       <div class="container mx-auto px-6 py-24 text-center">
         <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 text-[#e1bc47]">
           Tu Nube de Bases de Datos, Lista en Segundos.
@@ -30,33 +30,33 @@
 
     <section class="container mx-auto px-6 py-20">
       <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Un Proceso Increíblemente Sencillo</h2>
-        <p class="text-gray-600 mt-2">Empieza a construir en menos de un minuto.</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Un Proceso Increíblemente Sencillo</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">Empieza a construir en menos de un minuto.</p>
       </div>
       <div class="grid md:grid-cols-3 gap-12 text-center">
         <div class="flex flex-col items-center">
           <div class="bg-[#e1bc47] text-black rounded-full h-16 w-16 flex items-center justify-center text-2xl font-bold mb-4">1</div>
-          <h3 class="text-xl font-bold mb-2 text-gray-900">Regístrate en Segundos</h3>
-          <p class="text-gray-600">Crea tu cuenta gratis sin necesidad de tarjeta de crédito y obtén acceso instantáneo.</p>
+          <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Regístrate en Segundos</h3>
+          <p class="text-gray-600 dark:text-gray-400">Crea tu cuenta gratis sin necesidad de tarjeta de crédito y obtén acceso instantáneo.</p>
         </div>
         <div class="flex flex-col items-center">
           <div class="bg-[#e1bc47] text-black rounded-full h-16 w-16 flex items-center justify-center text-2xl font-bold mb-4">2</div>
-          <h3 class="text-xl font-bold mb-2 text-gray-900">Elige tu Motor</h3>
-          <p class="text-gray-600">Selecciona entre los motores de bases de datos más populares del mercado.</p>
+          <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Elige tu Motor</h3>
+          <p class="text-gray-600 dark:text-gray-400">Selecciona entre los motores de bases de datos más populares del mercado.</p>
         </div>
         <div class="flex flex-col items-center">
           <div class="bg-[#e1bc47] text-black rounded-full h-16 w-16 flex items-center justify-center text-2xl font-bold mb-4">3</div>
-          <h3 class="text-xl font-bold mb-2 text-gray-900">Conéctate y Desarrolla</h3>
-          <p class="text-gray-600">Recibe tus credenciales al instante y enfócate en lo que realmente importa: tu código.</p>
+          <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Conéctate y Desarrolla</h3>
+          <p class="text-gray-600 dark:text-gray-400">Recibe tus credenciales al instante y enfócate en lo que realmente importa: tu código.</p>
         </div>
       </div>
     </section>
 
-    <section class="bg-gray-50">
+    <section class="bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
       <div class="container mx-auto px-6 py-20">
         <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Compatible con tus Herramientas Favoritas</h2>
-          <p class="text-gray-600 mt-2">Usamos las tecnologías que ya conoces y amas.</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Compatible con tus Herramientas Favoritas</h2>
+          <p class="text-gray-600 dark:text-gray-400 mt-2">Usamos las tecnologías que ya conoces y amas.</p>
         </div>
         <div class="flex flex-wrap justify-center items-center gap-x-16 gap-y-12">
           <!-- MySQL -->
@@ -118,27 +118,27 @@
 
     <section class="container mx-auto px-6 py-20">
       <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Preguntas Frecuentes</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Preguntas Frecuentes</h2>
       </div>
       <div class="max-w-3xl mx-auto space-y-4">
         <div>
-          <h4 class="font-semibold text-lg text-gray-900">¿Realmente es gratis?</h4>
-          <p class="text-gray-600 mt-1">Sí, nuestro plan gratuito te permite tener hasta dos bases de datos por cada motor, ideal para proyectos personales y de desarrollo.</p>
+          <h4 class="font-semibold text-lg text-gray-900 dark:text-white">¿Realmente es gratis?</h4>
+          <p class="text-gray-600 dark:text-gray-400 mt-1">Sí, nuestro plan gratuito te permite tener hasta dos bases de datos por cada motor, ideal para proyectos personales y de desarrollo.</p>
         </div>
-        <hr/>
+        <hr class="dark:border-gray-700"/>
         <div>
-          <h4 class="font-semibold text-lg text-gray-900">¿Qué tan seguras son mis bases de datos?</h4>
-          <p class="text-gray-600 mt-1">Cada instancia se ejecuta en un entorno aislado con credenciales únicas. Toda la comunicación está protegida con cifrado SSL.</p>
+          <h4 class="font-semibold text-lg text-gray-900 dark:text-white">¿Qué tan seguras son mis bases de datos?</h4>
+          <p class="text-gray-600 dark:text-gray-400 mt-1">Cada instancia se ejecuta en un entorno aislado con credenciales únicas. Toda la comunicación está protegida con cifrado SSL.</p>
         </div>
-        <hr/>
+        <hr class="dark:border-gray-700"/>
         <div>
-          <h4 class="font-semibold text-lg text-gray-900">¿Qué pasa si necesito más capacidad?</h4>
-          <p class="text-gray-600 mt-1">Puedes actualizar a uno de nuestros planes de pago en cualquier momento y de forma instantánea desde tu panel de control.</p>
+          <h4 class="font-semibold text-lg text-gray-900 dark:text-white">¿Qué pasa si necesito más capacidad?</h4>
+          <p class="text-gray-600 dark:text-gray-400 mt-1">Puedes actualizar a uno de nuestros planes de pago en cualquier momento y de forma instantánea desde tu panel de control.</p>
         </div>
       </div>
     </section>
 
-    <section class="bg-gradient-to-br from-black to-gray-900">
+    <section class="bg-gradient-to-br from-black to-gray-900 dark:from-gray-900 dark:to-black transition-colors duration-300">
       <div class="container mx-auto px-6 py-20 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-[#e1bc47]">¿Listo para Acelerar tu Desarrollo?</h2>
         <RouterLink

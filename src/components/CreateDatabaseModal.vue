@@ -4,14 +4,14 @@
       <div v-if="isOpen" class="fixed inset-0 z-50 overflow-y-auto" @click.self="closeModal">
         <div class="flex min-h-screen items-center justify-center p-4">
           <!-- Backdrop -->
-          <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity" @click="closeModal"></div>
+          <div class="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 transition-opacity" @click="closeModal"></div>
 
           <!-- Modal -->
-          <div class="relative bg-white rounded-lg shadow-xl max-w-md w-full p-6 transform transition-all">
+          <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-6 transform transition-all">
             <!-- Header -->
             <div class="flex justify-between items-center mb-4">
-              <h3 class="text-2xl font-bold text-gray-900">Crear Base de Datos</h3>
-              <button @click="closeModal" class="text-gray-400 hover:text-gray-600 transition-colors">
+              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Crear Base de Datos</h3>
+              <button @click="closeModal" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -23,14 +23,14 @@
               <div class="space-y-4">
                 <!-- Motor de Base de Datos -->
                 <div>
-                  <label for="dbEngine" class="block text-sm font-medium text-gray-700 mb-1">
+                  <label for="dbEngine" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Motor de Base de Datos
                   </label>
                   <select
                     id="dbEngine"
                     v-model="formData.engine"
                     required
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#e1bc47] focus:border-transparent"
+                    class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-[#e1bc47] focus:border-transparent"
                     :disabled="isLoading"
                   >
                     <option value="" disabled>Selecciona un motor</option>
@@ -44,8 +44,8 @@
                 </div>
 
                 <!-- Información adicional -->
-                <div class="bg-yellow-50 border border-[#e1bc47] rounded-lg p-3">
-                  <p class="text-sm text-gray-800">
+                <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-[#e1bc47] dark:border-[#e1bc47]/50 rounded-lg p-3">
+                  <p class="text-sm text-gray-800 dark:text-gray-300">
                     <strong>Nota:</strong> La base de datos se creará automáticamente y recibirás las credenciales de acceso una vez completado el proceso.
                   </p>
                 </div>
