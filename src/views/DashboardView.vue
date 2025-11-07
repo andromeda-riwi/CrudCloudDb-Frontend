@@ -123,7 +123,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, inject } from 'vue';
 import { useToast } from 'vue-toastification';
 import StatCard from '@/components/StatCard.vue';
 import CreateDatabaseModal from '@/components/CreateDatabaseModal.vue';
@@ -132,6 +132,9 @@ import { databaseService } from '@/services/database';
 import type { Database, DatabaseCredentials, CreateDatabaseRequest } from '@/services/database';
 
 const toast = useToast();
+
+// Inyectar función para refrescar estadísticas del sidebar
+const refreshStats = inject<(() => Promise<void>) | undefined>('refreshStats', undefined);
 
 // Helper function to extract error message
 const getErrorMessage = (error: any, defaultMessage: string): string => {
@@ -277,6 +280,11 @@ const handleCreateDatabase = async (data: CreateDatabaseRequest) => {
 
     // Reload data
     await Promise.all([loadDashboardStats(), loadDatabases()]);
+
+    // Refrescar estadísticas del sidebar
+    if (refreshStats) {
+      await refreshStats();
+    }
   } catch (error) {
     console.error('Error creating database:', error);
     toast.error(getErrorMessage(error, 'Error al crear la base de datos'));
@@ -311,6 +319,11 @@ const confirmDelete = async (databaseId: string, databaseName: string) => {
 
     // Reload data
     await Promise.all([loadDashboardStats(), loadDatabases()]);
+
+    // Refrescar estadísticas del sidebar
+    if (refreshStats) {
+      await refreshStats();
+    }
   } catch (error) {
     console.error('Error deleting database:', error);
     toast.error(getErrorMessage(error, 'Error al eliminar la base de datos'));

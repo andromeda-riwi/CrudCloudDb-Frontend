@@ -3,10 +3,56 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <!-- Logo y botón Home -->
-        <div class="flex items-center">
-          <RouterLink to="/" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+        <div class="flex items-center space-x-8">
+          <!-- Logo clickeable que lleva al inicio de la landing -->
+          <a
+            v-if="isLandingPage"
+            href="#inicio"
+            @click.prevent="scrollToTop"
+            class="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer"
+          >
+            <img src="@/assets/logoApexDBWB.png" alt="ApexDB Logo" class="h-10 w-auto" />
+          </a>
+          <!-- RouterLink para otras páginas -->
+          <RouterLink
+            v-else
+            to="/"
+            class="flex items-center space-x-2 hover:opacity-80 transition-opacity"
+          >
             <img src="@/assets/logoApexDBWB.png" alt="ApexDB Logo" class="h-10 w-auto" />
           </RouterLink>
+
+          <!-- Enlaces de navegación (solo en landing page) -->
+          <div v-if="isLandingPage" class="hidden md:flex items-center space-x-6">
+            <a
+              href="#inicio"
+              @click.prevent="scrollToTop"
+              class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#e1bc47] dark:hover:text-[#e1bc47] transition-colors cursor-pointer"
+            >
+              Inicio
+            </a>
+            <a
+              href="#precios"
+              @click.prevent="scrollToSection('precios')"
+              class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#e1bc47] dark:hover:text-[#e1bc47] transition-colors cursor-pointer"
+            >
+              Precios
+            </a>
+            <a
+              href="#faq"
+              @click.prevent="scrollToSection('faq')"
+              class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#e1bc47] dark:hover:text-[#e1bc47] transition-colors cursor-pointer"
+            >
+              FAQ
+            </a>
+            <a
+              href="#contacto"
+              @click.prevent="scrollToSection('contacto')"
+              class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-[#e1bc47] dark:hover:text-[#e1bc47] transition-colors cursor-pointer"
+            >
+              Contacto
+            </a>
+          </div>
         </div>
 
         <!-- Botones de navegación -->
@@ -62,6 +108,9 @@ const toast = useToast();
 const isAuthenticated = computed(() => authService.isAuthenticated());
 const userName = computed(() => authService.getUserName());
 
+// Verificar si estamos en la landing page
+const isLandingPage = computed(() => route.path === '/');
+
 // Ocultar botones de login/register cuando estamos en esas vistas
 const shouldShowAuthButtons = computed(() => {
   return !['login', 'register'].includes(route.name as string);
@@ -71,6 +120,29 @@ const handleLogout = () => {
   authService.logout();
   toast.info('¡Hasta pronto!');
   router.push('/login');
+};
+
+// Función para hacer scroll al inicio de la página
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+};
+
+// Función para hacer scroll suave a las secciones
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    const offset = 80; // Altura del navbar
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
 };
 </script>
 

@@ -116,7 +116,21 @@
       </div>
     </section>
 
-    <section class="container mx-auto px-6 py-20">
+    <!-- Precios Section -->
+    <section id="precios" class="bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+      <div class="container mx-auto px-6 py-20">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Planes que se Ajustan a tus Necesidades</h2>
+          <p class="text-gray-600 dark:text-gray-400 mt-2">Comienza gratis y escala a medida que creces.</p>
+        </div>
+
+        <!-- Componente de precios reutilizable -->
+        <PricingSection />
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="container mx-auto px-6 py-20">
       <div class="text-center mb-12">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Preguntas Frecuentes</h2>
       </div>
@@ -149,10 +163,15 @@
         </RouterLink>
       </div>
     </section>
+
+    <!-- Footer -->
+    <AppFooter />
   </div>
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import Navbar from '@/components/Navbar.vue';
+import PricingSection from '@/components/PricingSection.vue';
+import AppFooter from '@/components/AppFooter.vue';
 </script>
