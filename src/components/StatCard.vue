@@ -1,8 +1,8 @@
-﻿<template>
-  <div class="bg-white p-6 rounded-lg shadow">
-    <h3 class="text-sm font-medium text-gray-500">{{ title }}</h3>
-    <p class="mt-2 text-3xl font-bold text-gray-800">{{ value }}</p>
-    <p v-if="subtitle" class="mt-1 text-xs text-gray-400">
+﻿﻿<template>
+  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow transition-colors duration-300">
+    <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ title }}</h3>
+    <p class="mt-2 text-3xl font-bold text-gray-800 dark:text-white">{{ value }}</p>
+    <p v-if="subtitle" class="mt-1 text-xs text-gray-400 dark:text-gray-500">
       {{ subtitle }}
     </p>
   </div>

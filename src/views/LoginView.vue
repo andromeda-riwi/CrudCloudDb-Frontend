@@ -1,8 +1,8 @@
 ﻿<template>
-  <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+  <div class="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-800 rounded-lg shadow-md transition-colors duration-300">
     <div class="text-center">
-      <h1 class="text-3xl font-bold text-gray-900">Inicia Sesión</h1>
-      <p class="mt-2 text-gray-500">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Inicia Sesión</h1>
+      <p class="mt-2 text-gray-500 dark:text-gray-400">
         ¿Aún no tienes una cuenta?
         <RouterLink to="/register" class="font-medium text-[#e1bc47] hover:text-[#f0d470]">
           Regístrate gratis
@@ -12,7 +12,7 @@
 
     <form @submit.prevent="handleLogin" class="space-y-6">
       <div>
-        <label for="identifier" class="block text-sm font-medium text-gray-700">
+        <label for="identifier" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Correo Electrónico o Nombre de Usuario
         </label>
         <input
@@ -21,13 +21,13 @@
           type="text"
           required
           placeholder="tu@correo.com o tu usuario"
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
+          class="w-full px-3 py-2 mt-1 text-gray-800 dark:text-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
 
       <div>
         <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm font-medium text-gray-700">
+          <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Contraseña
           </label>
           <a href="#" class="text-sm text-[#e1bc47] hover:text-[#f0d470]">
@@ -40,7 +40,7 @@
           type="password"
           required
           placeholder="••••••••"
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
+          class="w-full px-3 py-2 mt-1 text-gray-800 dark:text-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
 

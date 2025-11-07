@@ -1,8 +1,8 @@
 ﻿﻿<template>
-  <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+  <div class="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-800 rounded-lg shadow-md transition-colors duration-300">
     <div class="text-center">
-      <h1 class="text-3xl font-bold text-gray-900">Crea tu Cuenta</h1>
-      <p class="mt-2 text-gray-500">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Crea tu Cuenta</h1>
+      <p class="mt-2 text-gray-500 dark:text-gray-400">
         ¿Ya tienes una?
         <RouterLink to="/login" class="font-medium text-[#e1bc47] hover:text-[#f0d470]">
           Inicia sesión
@@ -12,7 +12,7 @@
 
     <form @submit.prevent="handleRegister" class="space-y-4">
       <div>
-        <label for="name" class="block text-sm font-medium text-gray-700">
+        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Nombre
         </label>
         <input
@@ -21,11 +21,11 @@
           type="text"
           required
           placeholder=""
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
+          class="w-full px-3 py-2 mt-1 text-gray-800 dark:text-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
       <div>
-        <label for="lastName" class="block text-sm font-medium text-gray-700">
+        <label for="lastName" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Apellido
         </label>
         <input
@@ -34,11 +34,11 @@
           type="text"
           required
           placeholder=""
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
+          class="w-full px-3 py-2 mt-1 text-gray-800 dark:text-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
       <div>
-        <label for="userName" class="block text-sm font-medium text-gray-700">
+        <label for="userName" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Nombre de usuario
         </label>
         <input
@@ -47,11 +47,11 @@
           type="text"
           required
           placeholder=""
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
+          class="w-full px-3 py-2 mt-1 text-gray-800 dark:text-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
       <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">
+        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Correo Electrónico
         </label>
         <input
@@ -60,12 +60,12 @@
           type="email"
           required
           placeholder="tu@correo.com"
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
+          class="w-full px-3 py-2 mt-1 text-gray-800 dark:text-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
 
       <div>
-        <label for="password" class="block text-sm font-medium text-gray-700">
+        <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Contraseña
         </label>
         <input
@@ -74,12 +74,12 @@
           type="password"
           required
           placeholder="••••••••"
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
+          class="w-full px-3 py-2 mt-1 text-gray-800 dark:text-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
       </div>
 
       <div v-if="password.length > 0" class="w-full">
-        <div class="h-2 w-full bg-gray-200 rounded">
+        <div class="h-2 w-full bg-gray-200 dark:bg-gray-700 rounded">
           <div class="h-full rounded transition-all duration-300" :class="strengthBarClasses"></div>
         </div>
         <p class="text-xs mt-1" :class="strengthTextClasses">
@@ -87,7 +87,7 @@
         </p>
       </div>
       <div>
-        <label for="password-confirm" class="block text-sm font-medium text-gray-700">
+        <label for="password-confirm" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
           Confirmar Contraseña
         </label>
         <input
@@ -96,9 +96,9 @@
           type="password"
           required
           placeholder="••••••••"
-          class="w-full px-3 py-2 mt-1 text-gray-800 border border-gray-300 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
+          class="w-full px-3 py-2 mt-1 text-gray-800 dark:text-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-[#e1bc47] focus:border-[#e1bc47]"
         />
-        <p v-if="passwordsDoNotMatch" class="text-xs text-red-500 mt-1">
+        <p v-if="passwordsDoNotMatch" class="text-xs text-red-500 dark:text-red-400 mt-1">
           Las contraseñas no coinciden.
         </p>
       </div>
