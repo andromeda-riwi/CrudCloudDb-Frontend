@@ -227,17 +227,17 @@ const loadDashboardStats = async () => {
       {
         title: 'Plan Actual',
         value: stats.currentPlan,
-        subtitle: ''
-      },
-      {
-        title: 'Bases de Datos Usadas',
-        value: `${stats.totalDatabases} / ${stats.maxDatabases}`,
-        subtitle: dbByEngine
+        subtitle: `${stats.maxDatabasesPerEngine} BD por motor`
       },
       {
         title: 'Coste Mensual',
         value: `$${stats.monthlyPrice.toLocaleString('es-CO')} COP`,
         subtitle: stats.nextBillingDate ? `Próximo cobro: ${formatDate(stats.nextBillingDate)}` : ''
+      },
+      {
+        title: 'Bases de Datos',
+        value: `${stats.totalDatabases} / ${stats.maxTotalDatabases}`,
+        subtitle: dbByEngine
       }
     ];
   } catch (error) {

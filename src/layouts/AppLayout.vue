@@ -162,7 +162,7 @@
     <div class="flex-1 flex flex-col overflow-hidden">
       <header class="bg-white dark:bg-gray-800 shadow p-4 transition-colors duration-300">
         <div class="flex justify-between items-center">
-          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Bienvenido, {{ userName }}</h2>
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Bienvenido, {{ userFirstName }}</h2>
           <div class="flex items-center space-x-3">
             <!-- Dark Mode Toggle -->
             <DarkModeToggle />
@@ -194,16 +194,38 @@ import { authService } from '@/services/auth';
 import { computed, ref, onMounted, watch, provide } from 'vue';
 import DarkModeToggle from '@/components/DarkModeToggle.vue';
 import { databaseService } from '@/services/database';
+import { userService } from '@/services/user';
 
 const router = useRouter();
 const route = useRoute();
 const toast = useToast();
 
-const userName = computed(() => authService.getUserName());
+// Datos del usuario
+const userFullName = ref('Usuario');
+const userFirstName = ref('Usuario');
+
+// Función para cargar datos del usuario
+const loadUserData = async () => {
+  try {
+    const userData = await userService.getCurrentUser();
+    userFirstName.value = userData.name || 'Usuario';
+    userFullName.value = userData.name && userData.lastName
+      ? `${userData.name} ${userData.lastName}`
+      : userData.name || 'Usuario';
+  } catch (error) {
+    console.log('No se pudieron cargar los datos del usuario:', error);
+    // Usar valores por defecto
+    userFullName.value = 'Usuario';
+    userFirstName.value = 'Usuario';
+  }
+};
+
+// Computed para compatibilidad con el código existente
+const userName = computed(() => userFullName.value);
 
 // Estadísticas del dashboard
 const totalDatabases = ref(0);
-const maxDatabases = ref(10);
+const maxDatabases = ref(12); // Valor por defecto para plan básico (2 BD × 6 motores)
 const currentPlan = ref('Básico');
 const isLoadingStats = ref(false);
 
@@ -215,7 +237,7 @@ const loadStats = async () => {
     isLoadingStats.value = true;
     const stats = await databaseService.getDashboardStats();
     totalDatabases.value = stats.totalDatabases;
-    maxDatabases.value = stats.maxDatabases;
+    maxDatabases.value = stats.maxTotalDatabases; // ← Cambiado de maxDatabases a maxTotalDatabases
     currentPlan.value = stats.currentPlan;
   } catch (error) {
     console.log('No se pudieron cargar las estadísticas:', error);
@@ -225,8 +247,9 @@ const loadStats = async () => {
   }
 };
 
-// Cargar estadísticas al montar
+// Cargar estadísticas y datos del usuario al montar
 onMounted(() => {
+  loadUserData();
   loadStats();
 });
 
@@ -247,7 +270,7 @@ const usagePercentage = computed(() => {
 });
 
 const getUserInitials = () => {
-  const name = authService.getUserName();
+  const name = userFullName.value;
   if (!name || name === 'Usuario') return 'U';
 
   const names = name.split(' ');

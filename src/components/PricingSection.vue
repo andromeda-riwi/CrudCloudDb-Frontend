@@ -33,7 +33,17 @@
           Backups diarios
         </li>
       </ul>
+      <button
+        v-if="isAuthenticated"
+        @click="handlePlanClick(1)"
+        :disabled="getButtonDisabled(1)"
+        :class="getButtonClass(1)"
+        class="block w-full text-center font-bold py-3 px-6 rounded-lg transition-colors"
+      >
+        {{ getButtonText(1) }}
+      </button>
       <RouterLink
+        v-else
         to="/register"
         class="block w-full text-center bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
       >
@@ -83,7 +93,17 @@
           Monitoreo avanzado
         </li>
       </ul>
+      <button
+        v-if="isAuthenticated"
+        @click="handlePlanClick(2)"
+        :disabled="getButtonDisabled(2)"
+        :class="getButtonClass(2)"
+        class="block w-full text-center font-bold py-3 px-6 rounded-lg transition-colors"
+      >
+        {{ getButtonText(2) }}
+      </button>
       <RouterLink
+        v-else
         to="/register"
         class="block w-full text-center bg-[#e1bc47] text-black font-bold py-3 px-6 rounded-lg hover:bg-[#f0d470] transition-colors"
       >
@@ -136,7 +156,17 @@
           Métricas personalizadas
         </li>
       </ul>
+      <button
+        v-if="isAuthenticated"
+        @click="handlePlanClick(3)"
+        :disabled="getButtonDisabled(3)"
+        :class="getButtonClass(3)"
+        class="block w-full text-center font-bold py-3 px-6 rounded-lg transition-colors"
+      >
+        {{ getButtonText(3) }}
+      </button>
       <RouterLink
+        v-else
         to="/register"
         class="block w-full text-center bg-gray-900 dark:bg-white text-white dark:text-black font-bold py-3 px-6 rounded-lg hover:bg-black dark:hover:bg-gray-100 transition-colors"
       >
@@ -147,6 +177,144 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { ref, onMounted, computed } from 'vue';
+import { RouterLink, useRouter } from 'vue-router';
+import { authService } from '@/services/auth';
+import { paymentService } from '@/services/payment';
+import { userService } from '@/services/user';
+
+const router = useRouter();
+const loading = ref(false);
+const currentUserPlanId = ref<number | null>(null);
+const isAuthenticated = computed(() => authService.isAuthenticated());
+
+// Cargar el plan actual del usuario al montar el componente
+onMounted(async () => {
+  if (isAuthenticated.value) {
+    try {
+      const user = await userService.getCurrentUser();
+      currentUserPlanId.value = user.planId;
+    } catch (error) {
+      console.error('Error al obtener información del usuario:', error);
+      // Si hay error al obtener el usuario, podría ser token expirado
+      currentUserPlanId.value = null;
+    }
+  }
+});
+
+// Determinar el texto del botón según el plan actual del usuario
+const getButtonText = (planId: number): string => {
+  if (loading.value) {
+    return 'Procesando...';
+  }
+
+  if (currentUserPlanId.value === null) {
+    return planId === 1 ? 'Empezar Gratis' : 'Comenzar Ahora';
+  }
+
+  if (currentUserPlanId.value === planId) {
+    return 'Plan Actual';
+  }
+
+  if (planId > currentUserPlanId.value) {
+    return 'Mejorar Plan';
+  }
+
+  return 'Cambiar Plan';
+};
+
+// Determinar si el botón debe estar deshabilitado
+const getButtonDisabled = (planId: number): boolean => {
+  // Deshabilitar si está cargando
+  if (loading.value) {
+    return true;
+  }
+
+  // Deshabilitar si es el plan actual
+  if (currentUserPlanId.value === planId) {
+    return true;
+  }
+
+  return false;
+};
+
+// Determinar las clases CSS del botón según el plan y estado
+const getButtonClass = (planId: number): string => {
+  const isCurrentPlan = currentUserPlanId.value === planId;
+  const isDisabled = getButtonDisabled(planId);
+
+  // Clases base
+  let classes = '';
+
+  // Clases específicas por plan
+  if (planId === 1) {
+    classes = 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white';
+    if (!isDisabled) {
+      classes += ' hover:bg-gray-200 dark:hover:bg-gray-700';
+    }
+  } else if (planId === 2) {
+    classes = 'bg-[#e1bc47] text-black';
+    if (!isDisabled) {
+      classes += ' hover:bg-[#f0d470]';
+    }
+  } else if (planId === 3) {
+    classes = 'bg-gray-900 dark:bg-white text-white dark:text-black';
+    if (!isDisabled) {
+      classes += ' hover:bg-black dark:hover:bg-gray-100';
+    }
+  }
+
+  // Agregar clases de deshabilitado
+  if (isDisabled) {
+    classes += ' opacity-50 cursor-not-allowed';
+  }
+
+  return classes;
+};
+
+const handlePlanClick = async (planId: number) => {
+  // No hacer nada si el usuario no está autenticado (no debería llegar aquí)
+  if (!isAuthenticated.value) {
+    router.push('/register');
+    return;
+  }
+
+  // No hacer nada si es el plan actual
+  if (currentUserPlanId.value === planId) {
+    return;
+  }
+
+  // Si es el plan gratuito y el usuario tiene un plan superior, podría ser un downgrade
+  // Por ahora, redirigimos al registro o mostramos un mensaje
+  if (planId === 1) {
+    alert('Para cambiar al plan gratuito, por favor contacta con soporte.');
+    return;
+  }
+
+  // Si está autenticado y no es el plan actual, procesar el pago
+  loading.value = true;
+
+  try {
+    // Llamar al backend para crear la preferencia de pago
+    const response = await paymentService.createPreference(planId);
+
+    // Redirigir a la pasarela de pagos
+    paymentService.redirectToPayment(response.initPoint);
+  } catch (error: any) {
+    loading.value = false;
+
+    // Manejar errores
+    if (error.response?.status === 401) {
+      alert('Tu sesión ha expirado. Por favor, inicia sesión nuevamente.');
+      router.push('/login');
+    } else if (error.response?.status === 400) {
+      alert(error.response?.data?.message || 'Error al procesar el pago. Por favor, intenta nuevamente.');
+    } else {
+      alert('Ocurrió un error al procesar tu solicitud. Por favor, intenta más tarde.');
+    }
+
+    console.error('Error al crear preferencia de pago:', error);
+  }
+};
 </script>
 
