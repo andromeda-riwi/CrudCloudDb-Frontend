@@ -1,7 +1,20 @@
-﻿<template>
-  <div class="flex h-screen bg-gray-50">
+﻿﻿<template>
+  <div class="flex h-screen bg-gray-50 overflow-hidden">
+    <!-- Overlay para móvil -->
+    <div
+      v-if="isSidebarOpen"
+      @click="closeSidebar"
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden transition-opacity"
+    ></div>
+
     <!-- Sidebar mejorado -->
-    <aside class="w-72 flex-shrink-0 bg-gradient-to-b from-black to-gray-900 text-white shadow-2xl flex flex-col">
+    <aside
+      :class="[
+        'w-72 flex-shrink-0 bg-gradient-to-b from-black to-gray-900 text-white shadow-2xl flex flex-col z-50 transition-transform duration-300 ease-in-out',
+        'fixed lg:static h-full',
+        isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+      ]"
+    >
       <!-- Header con logo -->
       <div class="p-6 border-b border-gray-800">
         <div class="flex items-center space-x-3">
@@ -159,28 +172,39 @@
       </div>
     </aside>
 
-    <div class="flex-1 flex flex-col overflow-hidden">
+    <div class="flex-1 flex flex-col overflow-hidden w-full lg:w-auto">
       <header class="bg-white dark:bg-gray-800 shadow p-4 transition-colors duration-300">
         <div class="flex justify-between items-center">
-          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Bienvenido, {{ userFirstName }}</h2>
-          <div class="flex items-center space-x-3">
+          <!-- Botón hamburguesa para móvil -->
+          <div class="flex items-center space-x-4">
+            <button
+              @click="toggleSidebar"
+              class="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <svg class="w-6 h-6 text-gray-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            <h2 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white truncate">Bienvenido, {{ userFirstName }}</h2>
+          </div>
+          <div class="flex items-center space-x-2 sm:space-x-3">
             <!-- Dark Mode Toggle -->
             <DarkModeToggle />
 
             <button
               @click="handleLogout"
-              class="px-4 py-2 text-sm font-medium text-black bg-[#e1bc47] rounded-md hover:bg-[#f0d470] transition-colors flex items-center space-x-2"
+              class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-black bg-[#e1bc47] rounded-md hover:bg-[#f0d470] transition-colors flex items-center space-x-1 sm:space-x-2"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
-              <span>Cerrar Sesión</span>
+              <span class="hidden sm:inline">Cerrar Sesión</span>
             </button>
           </div>
         </div>
       </header>
 
-      <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900 p-6 transition-colors duration-300">
+      <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-gray-900 p-3 sm:p-4 md:p-6 transition-colors duration-300">
         <RouterView />
       </main>
     </div>
@@ -199,6 +223,22 @@ import { userService } from '@/services/user';
 const router = useRouter();
 const route = useRoute();
 const toast = useToast();
+
+// Estado del sidebar para móviles
+const isSidebarOpen = ref(false);
+
+const toggleSidebar = () => {
+  isSidebarOpen.value = !isSidebarOpen.value;
+};
+
+const closeSidebar = () => {
+  isSidebarOpen.value = false;
+};
+
+// Cerrar sidebar al cambiar de ruta en móviles
+watch(() => route.path, () => {
+  closeSidebar();
+});
 
 // Datos del usuario
 const userFullName = ref('Usuario');

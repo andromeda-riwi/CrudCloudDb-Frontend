@@ -1,7 +1,7 @@
-﻿<template>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+﻿﻿<template>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto px-4 sm:px-6">
     <!-- Plan Gratuito -->
-    <div class="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg border-2 border-gray-200 dark:border-gray-700 transition-all duration-300">
+    <div class="bg-white dark:bg-gray-900 rounded-lg p-6 sm:p-8 shadow-lg border-2 border-gray-200 dark:border-gray-700 transition-all duration-300">
       <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Gratuito</h3>
       <div class="mb-6">
         <span class="text-4xl font-extrabold text-gray-900 dark:text-white">$0</span>
@@ -52,7 +52,7 @@
     </div>
 
     <!-- Plan Intermedio -->
-    <div class="bg-gradient-to-br from-black to-gray-900 rounded-lg p-8 shadow-2xl border-2 border-[#e1bc47] transform scale-105 transition-all duration-300">
+    <div class="bg-gradient-to-br from-black to-gray-900 rounded-lg p-6 sm:p-8 shadow-2xl border-2 border-[#e1bc47] lg:transform lg:scale-105 transition-all duration-300">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-2xl font-bold text-[#e1bc47]">Intermedio</h3>
         <span class="bg-[#e1bc47] text-black text-xs font-bold px-3 py-1 rounded-full">POPULAR</span>
@@ -112,7 +112,7 @@
     </div>
 
     <!-- Plan Avanzado -->
-    <div class="bg-white dark:bg-gray-900 rounded-lg p-8 shadow-lg border-2 border-gray-200 dark:border-gray-700 transition-all duration-300">
+    <div class="bg-white dark:bg-gray-900 rounded-lg p-6 sm:p-8 shadow-lg border-2 border-gray-200 dark:border-gray-700 transition-all duration-300">
       <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Avanzado</h3>
       <div class="mb-6">
         <span class="text-4xl font-extrabold text-gray-900 dark:text-white">$10.000</span>

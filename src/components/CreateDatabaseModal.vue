@@ -1,18 +1,18 @@
-﻿<template>
+﻿﻿<template>
   <Teleport to="body">
     <Transition name="modal">
       <div v-if="isOpen" class="fixed inset-0 z-50 overflow-y-auto" @click.self="closeModal">
-        <div class="flex min-h-screen items-center justify-center p-4">
+        <div class="flex min-h-screen items-center justify-center p-3 sm:p-4">
           <!-- Backdrop -->
           <div class="fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 transition-opacity" @click="closeModal"></div>
 
           <!-- Modal -->
-          <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-6 transform transition-all">
+          <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-4 sm:p-6 transform transition-all">
             <!-- Header -->
             <div class="flex justify-between items-center mb-4">
-              <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Crear Base de Datos</h3>
+              <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Crear Base de Datos</h3>
               <button @click="closeModal" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>

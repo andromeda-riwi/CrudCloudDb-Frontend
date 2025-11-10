@@ -24,11 +24,11 @@ export const paymentService = {
   },
 
   /**
-   * Redirige al usuario a la pasarela de pago
+   * Redirige al usuario a la pasarela de pago en una nueva pestaña
    * @param initPoint URL de la pasarela de pago
    */
   redirectToPayment(initPoint: string): void {
-    window.location.href = initPoint;
+    window.open(initPoint, '_blank');
   }
 };
 
