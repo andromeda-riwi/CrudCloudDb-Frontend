@@ -28,7 +28,8 @@ export interface DashboardStats {
   totalDatabases: number;
   databasesByEngine: { [key: string]: number };
   currentPlan: string;
-  maxDatabases: number;
+  maxDatabasesPerEngine: number; // Límite por motor (ej: 2, 5, 10)
+  maxTotalDatabases: number; // Límite total (maxDatabasesPerEngine * número de motores)
   monthlyPrice: number;
   nextBillingDate?: string;
 }
@@ -116,7 +117,8 @@ export const databaseService = {
           totalDatabases: databases.length,
           databasesByEngine,
           currentPlan: 'Básico',
-          maxDatabases: 10,
+          maxDatabasesPerEngine: 2,
+          maxTotalDatabases: 12, // 2 por motor * 6 motores
           monthlyPrice: 0,
           nextBillingDate: undefined
         };
@@ -125,7 +127,8 @@ export const databaseService = {
           totalDatabases: 0,
           databasesByEngine: {},
           currentPlan: 'Básico',
-          maxDatabases: 10,
+          maxDatabasesPerEngine: 2,
+          maxTotalDatabases: 12,
           monthlyPrice: 0,
           nextBillingDate: undefined
         };

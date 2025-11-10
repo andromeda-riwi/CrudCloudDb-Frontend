@@ -1,10 +1,10 @@
-﻿<template>
-  <div class="container mx-auto">
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-4xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+﻿﻿<template>
+  <div class="container mx-auto max-w-7xl">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
       <button
         @click="openCreateModal"
-        class="bg-[#e1bc47] text-black font-bold py-2 px-4 rounded-lg hover:bg-[#f0d470] transition-colors"
+        class="w-full sm:w-auto bg-[#e1bc47] text-black font-bold py-2 px-4 rounded-lg hover:bg-[#f0d470] transition-colors text-sm sm:text-base"
       >
         + Crear Base de Datos
       </button>
@@ -19,7 +19,7 @@
     </div>
 
     <template v-else>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
         <StatCard
           v-for="stat in summaryStats"
           :key="stat.title"
@@ -29,7 +29,7 @@
         />
       </div>
 
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Mis Bases de Datos</h2>
+      <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4">Mis Bases de Datos</h2>
 
       <!-- Loading databases -->
       <div v-if="isLoadingDatabases" class="bg-white dark:bg-gray-800 p-12 rounded-lg shadow text-center">
@@ -53,47 +53,47 @@
       </div>
 
       <!-- Database table -->
-      <div v-else class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+      <div v-else class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
           <thead class="bg-gray-50 dark:bg-gray-700">
           <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Nombre</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Motor</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Estado</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Fecha Creación</th>
-            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Acciones</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Nombre</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Motor</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Estado</th>
+            <th class="hidden md:table-cell px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Fecha Creación</th>
+            <th class="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Acciones</th>
           </tr>
           </thead>
           <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
           <tr v-for="db in databases" :key="db.id">
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-3 sm:px-6 py-4 whitespace-nowrap">
               <div class="text-sm font-medium text-gray-900 dark:text-white">{{ db.name }}</div>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-3 sm:px-6 py-4 whitespace-nowrap">
               <div class="text-sm text-gray-800 dark:text-gray-300">{{ db.engine }}</div>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="px-3 sm:px-6 py-4 whitespace-nowrap">
               <span
-                class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
+                class="px-2 sm:px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
                 :class="getStatusClass(db.status)"
               >
                 {{ translateStatus(db.status) }}
               </span>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
+            <td class="hidden md:table-cell px-3 sm:px-6 py-4 whitespace-nowrap">
               <div class="text-sm text-gray-600 dark:text-gray-400">{{ formatDate(db.createdAt) }}</div>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+            <td class="px-3 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
               <button
                 @click="viewCredentials(db.id)"
-                class="text-[#e1bc47] hover:text-[#f0d470] mr-4"
+                class="text-[#e1bc47] hover:text-[#f0d470] mr-2 sm:mr-4 text-xs sm:text-sm"
                 :disabled="db.status !== 'Active'"
               >
                 Credenciales
               </button>
               <button
                 @click="confirmDelete(db.id, db.name)"
-                class="text-red-600 hover:text-red-900"
+                class="text-red-600 hover:text-red-900 text-xs sm:text-sm"
               >
                 Eliminar
               </button>
@@ -123,7 +123,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, inject } from 'vue';
 import { useToast } from 'vue-toastification';
 import StatCard from '@/components/StatCard.vue';
 import CreateDatabaseModal from '@/components/CreateDatabaseModal.vue';
@@ -132,6 +132,9 @@ import { databaseService } from '@/services/database';
 import type { Database, DatabaseCredentials, CreateDatabaseRequest } from '@/services/database';
 
 const toast = useToast();
+
+// Inyectar función para refrescar estadísticas del sidebar
+const refreshStats = inject<(() => Promise<void>) | undefined>('refreshStats', undefined);
 
 // Helper function to extract error message
 const getErrorMessage = (error: any, defaultMessage: string): string => {
@@ -224,17 +227,17 @@ const loadDashboardStats = async () => {
       {
         title: 'Plan Actual',
         value: stats.currentPlan,
-        subtitle: ''
-      },
-      {
-        title: 'Bases de Datos Usadas',
-        value: `${stats.totalDatabases} / ${stats.maxDatabases}`,
-        subtitle: dbByEngine
+        subtitle: `${stats.maxDatabasesPerEngine} BD por motor`
       },
       {
         title: 'Coste Mensual',
         value: `$${stats.monthlyPrice.toLocaleString('es-CO')} COP`,
         subtitle: stats.nextBillingDate ? `Próximo cobro: ${formatDate(stats.nextBillingDate)}` : ''
+      },
+      {
+        title: 'Bases de Datos',
+        value: `${stats.totalDatabases} / ${stats.maxTotalDatabases}`,
+        subtitle: dbByEngine
       }
     ];
   } catch (error) {
@@ -277,6 +280,11 @@ const handleCreateDatabase = async (data: CreateDatabaseRequest) => {
 
     // Reload data
     await Promise.all([loadDashboardStats(), loadDatabases()]);
+
+    // Refrescar estadísticas del sidebar
+    if (refreshStats) {
+      await refreshStats();
+    }
   } catch (error) {
     console.error('Error creating database:', error);
     toast.error(getErrorMessage(error, 'Error al crear la base de datos'));
@@ -311,6 +319,11 @@ const confirmDelete = async (databaseId: string, databaseName: string) => {
 
     // Reload data
     await Promise.all([loadDashboardStats(), loadDatabases()]);
+
+    // Refrescar estadísticas del sidebar
+    if (refreshStats) {
+      await refreshStats();
+    }
   } catch (error) {
     console.error('Error deleting database:', error);
     toast.error(getErrorMessage(error, 'Error al eliminar la base de datos'));

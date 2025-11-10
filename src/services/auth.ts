@@ -29,7 +29,12 @@ export const authService = {
 
     try {
       // Decodificar el payload del JWT (parte media del token)
-      const base64Url = token.split('.')[1];
+      const parts = token.split('.');
+      if (parts.length < 2) return null;
+
+      const base64Url = parts[1];
+      if (!base64Url) return null;
+
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
       const jsonPayload = decodeURIComponent(
         atob(base64)
@@ -41,11 +46,14 @@ export const authService = {
       const payload = JSON.parse(jsonPayload);
 
       // Los datos pueden estar en diferentes propiedades según cómo el backend configure el JWT
+      // ClaimTypes.Name en .NET genera el claim: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"
       return {
         userName: payload.userName || payload.unique_name || payload.sub,
         email: payload.email,
         userId: payload.userId || payload.nameid,
-        name: payload.name || payload.given_name
+        name: payload.name ||
+              payload.given_name ||
+              payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']
       };
     } catch (error) {
       console.error('Error al decodificar el token:', error);
