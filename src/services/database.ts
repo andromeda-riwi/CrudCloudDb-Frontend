@@ -21,7 +21,7 @@ export interface DatabaseCredentials {
 }
 
 export interface CreateDatabaseRequest {
-  engine: string; // 'MySQL', 'PostgreSQL', 'MongoDB'
+  engine: string; // 'MySQL', 'PostgreSQL', 'MongoDB', 'SQLServer'
 }
 
 export interface DashboardStats {
@@ -118,7 +118,7 @@ export const databaseService = {
           databasesByEngine,
           currentPlan: 'Básico',
           maxDatabasesPerEngine: 2,
-          maxTotalDatabases: 12, // 2 por motor * 6 motores
+          maxTotalDatabases: 8, // 2 por motor * 4 motores (MySQL, PostgreSQL, MongoDB, SQLServer)
           monthlyPrice: 0,
           nextBillingDate: undefined
         };
@@ -128,7 +128,7 @@ export const databaseService = {
           databasesByEngine: {},
           currentPlan: 'Básico',
           maxDatabasesPerEngine: 2,
-          maxTotalDatabases: 12,
+          maxTotalDatabases: 8, // 2 por motor * 4 motores (MySQL, PostgreSQL, MongoDB, SQLServer)
           monthlyPrice: 0,
           nextBillingDate: undefined
         };

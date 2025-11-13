@@ -1,4 +1,4 @@
-﻿<template>
+﻿cd<template>
   <div class="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-800 rounded-lg shadow-md transition-colors duration-300">
     <div class="text-center">
       <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Inicia Sesión</h1>
