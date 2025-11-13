@@ -1,4 +1,4 @@
-﻿﻿<template>
+﻿<template>
   <div class="flex h-screen bg-gray-50 overflow-hidden">
     <!-- Overlay para móvil -->
     <div
@@ -265,7 +265,7 @@ const userName = computed(() => userFullName.value);
 
 // Estadísticas del dashboard
 const totalDatabases = ref(0);
-const maxDatabases = ref(12); // Valor por defecto para plan básico (2 BD × 6 motores)
+const maxDatabases = ref(8); // Valor por defecto para plan básico (2 BD × 4 motores)
 const currentPlan = ref('Básico');
 const isLoadingStats = ref(false);
 

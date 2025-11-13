@@ -86,29 +86,11 @@
             />
           </div>
 
-          <!-- Redis -->
-          <div class="flex flex-col items-center gap-3">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original-wordmark.svg"
-              alt="Redis"
-              class="w-20 h-20"
-            />
-          </div>
-
           <!-- SQL Server -->
           <div class="flex flex-col items-center gap-3">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain-wordmark.svg"
               alt="SQL Server"
-              class="w-20 h-20"
-            />
-          </div>
-
-          <!-- Cassandra -->
-          <div class="flex flex-col items-center gap-3">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cassandra/cassandra-original.svg"
-              alt="Cassandra"
               class="w-20 h-20"
             />
           </div>
