@@ -6,6 +6,7 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import ForgotPasswordView from '../views/ForgotPasswordView.vue'
 import ResetPasswordView from '../views/ResetPasswordView.vue'
+import VerifyEmailView from '../views/VerifyEmailView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import DatabasesView from '../views/DatabasesView.vue'
 import PlansView from '../views/PlansView.vue'
@@ -42,6 +43,12 @@ const router = createRouter({
       name: 'reset-password',
       component: ResetPasswordView,
       meta: { layout: 'AuthLayout', title: 'Restablecer contraseña' }
+    },
+    {
+      path: '/verify-email',
+      name: 'verify-email',
+      component: VerifyEmailView,
+      meta: { layout: 'AuthLayout', title: 'Verificar correo' }
     },
     {
       path: '/dashboard',
