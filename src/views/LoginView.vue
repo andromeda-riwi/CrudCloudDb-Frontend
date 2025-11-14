@@ -30,9 +30,9 @@
           <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
             Contraseña
           </label>
-          <a href="#" class="text-sm text-[#e1bc47] hover:text-[#f0d470]">
+          <RouterLink to="/forgot-password" class="text-sm text-[#e1bc47] hover:text-[#f0d470]">
             ¿Olvidaste tu contraseña?
-          </a>
+          </RouterLink>
         </div>
         <input
           id="password"
@@ -96,9 +96,15 @@ const handleLogin = async () => {
 
     toast.success('¡Bienvenido de nuevo!');
     router.push('/dashboard');
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error de autenticación:', error);
-    toast.error('Credenciales incorrectas. Por favor, intenta de nuevo.');
+    const requiresVerification = error?.response?.data?.requiresEmailVerification;
+    if (requiresVerification) {
+      toast.error('Debes verificar tu email antes de iniciar sesión. Revisa tu bandeja de entrada.');
+      return;
+    }
+    const message = error?.response?.data?.message ?? 'Credenciales incorrectas. Por favor, intenta de nuevo.';
+    toast.error(message);
   }
 };
 </script>

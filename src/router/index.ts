@@ -4,6 +4,8 @@ import { useToast } from 'vue-toastification'
 import LandingView from '../views/LandingView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import ForgotPasswordView from '../views/ForgotPasswordView.vue'
+import ResetPasswordView from '../views/ResetPasswordView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import DatabasesView from '../views/DatabasesView.vue'
 import PlansView from '../views/PlansView.vue'
@@ -28,6 +30,18 @@ const router = createRouter({
       name: 'register',
       component: RegisterView,
       meta: { layout: 'AuthLayout', requiresGuest: true, title: 'Registro' }
+    },
+    {
+      path: '/forgot-password',
+      name: 'forgot-password',
+      component: ForgotPasswordView,
+      meta: { layout: 'AuthLayout', requiresGuest: true, title: 'Recuperar contraseña' }
+    },
+    {
+      path: '/reset-password',
+      name: 'reset-password',
+      component: ResetPasswordView,
+      meta: { layout: 'AuthLayout', title: 'Restablecer contraseña' }
     },
     {
       path: '/dashboard',

@@ -1,4 +1,6 @@
-﻿interface UserData {
+﻿import apiClient from './api';
+
+interface UserData {
   userName?: string;
   email?: string;
   userId?: string;
@@ -65,6 +67,14 @@ export const authService = {
   getUserName(): string {
     const userData = this.getUserData();
     return userData?.name || userData?.userName || 'Usuario';
+  },
+
+  async forgotPassword(email: string): Promise<void> {
+    await apiClient.post('/Auth/forgot-password', { email });
+  },
+
+  async resetPassword(token: string, newPassword: string): Promise<void> {
+    await apiClient.post('/Auth/reset-password', { token, newPassword });
   }
 };
 
