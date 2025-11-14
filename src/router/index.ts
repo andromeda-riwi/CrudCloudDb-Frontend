@@ -5,6 +5,7 @@ import LandingView from '../views/LandingView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import DashboardView from '../views/DashboardView.vue'
+import DatabasesView from '../views/DatabasesView.vue'
 import PlansView from '../views/PlansView.vue'
 
 const router = createRouter({
@@ -33,6 +34,12 @@ const router = createRouter({
       name: 'dashboard',
       component: DashboardView,
       meta: { layout: 'AppLayout', requiresAuth: true, title: 'Panel de control' }
+    },
+    {
+      path: '/databases',
+      name: 'databases',
+      component: DatabasesView,
+      meta: { layout: 'AppLayout', requiresAuth: true, title: 'Mis Bases de Datos' }
     },
     {
       path: '/plans',
