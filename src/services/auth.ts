@@ -79,6 +79,9 @@ export const authService = {
 
   async verifyEmail(token: string): Promise<void> {
     await apiClient.post('/Auth/verify-email', { token });
+  },
+
+  async resendVerification(): Promise<void> {
+    await apiClient.post('/Auth/resend-verification');
   }
 };
-

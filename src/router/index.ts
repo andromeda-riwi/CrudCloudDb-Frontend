@@ -10,6 +10,8 @@ import VerifyEmailView from '../views/VerifyEmailView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import DatabasesView from '../views/DatabasesView.vue'
 import PlansView from '../views/PlansView.vue'
+import AuditLogView from '../views/AuditLogView.vue'
+import ProfileView from '../views/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -67,6 +69,18 @@ const router = createRouter({
       name: 'plans',
       component: PlansView,
       meta: { layout: 'AppLayout', requiresAuth: true, title: 'Planes' }
+    },
+    {
+      path: '/audit-logs',
+      name: 'audit-logs',
+      component: AuditLogView,
+      meta: { layout: 'AppLayout', requiresAuth: true, title: 'Auditoría' }
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView,
+      meta: { layout: 'AppLayout', requiresAuth: true, title: 'Mi Perfil' }
     }
   ]
 })
