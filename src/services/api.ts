@@ -3,7 +3,8 @@ import { authService } from './auth';
 import router from '@/router';
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5063/api',
+//  baseURL: 'http://localhost:5063/api',
+  baseURL: 'https://service.andromeda.andrescortes.dev/api',
   headers: {
     'Content-Type': 'application/json'
   }
