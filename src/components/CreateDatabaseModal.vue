@@ -1,4 +1,4 @@
-﻿﻿<template>
+﻿<template>
   <Teleport to="body">
     <Transition name="modal">
       <div v-if="isOpen" class="fixed inset-0 z-50 overflow-y-auto" @click.self="closeModal">
@@ -38,8 +38,6 @@
                     <option value="PostgreSQL">PostgreSQL</option>
                     <option value="MongoDB">MongoDB</option>
                     <option value="SQLServer">SQL Server</option>
-                    <option value="Redis">Redis</option>
-                    <option value="Cassandra">Cassandra</option>
                   </select>
                 </div>
 

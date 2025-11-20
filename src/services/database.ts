@@ -18,10 +18,12 @@ export interface DatabaseCredentials {
   databaseName: string;
   username: string;
   password: string;
+  message?: string;
 }
 
 export interface CreateDatabaseRequest {
-  engine: string; // 'MySQL', 'PostgreSQL', 'MongoDB'
+  engine: string; // 'MySQL', 'PostgreSQL', 'MongoDB', 'SQLServer'
+  timeZoneId: string;
 }
 
 export interface DashboardStats {
@@ -78,21 +80,14 @@ export const databaseService = {
 
   // Obtener credenciales de una base de datos
   async getDatabaseCredentials(id: string): Promise<DatabaseCredentials> {
-    try {
-      const response = await apiClient.get(`/Databases/${id}/credentials`);
-      return response.data;
-    } catch (error) {
-      // Si el endpoint de credenciales no existe, intentar obtener la BD completa
-      console.warn('Endpoint de credenciales no disponible, usando datos de la BD');
-      const db = await this.getDatabaseById(id);
-      return {
-        host: db.host || 'localhost',
-        port: db.port || 3306,
-        databaseName: db.name,
-        username: db.username || 'user',
-        password: db.password || '********'
-      };
-    }
+    const response = await apiClient.get(`/Databases/${id}/credentials`);
+    return response.data;
+  },
+
+  // Rotar credenciales de una base de datos
+  async rotateCredentials(id: string): Promise<DatabaseCredentials> {
+    const response = await apiClient.post(`/Databases/${id}/rotate-credentials`);
+    return response.data;
   },
 
   // Obtener estadísticas del dashboard
@@ -118,7 +113,7 @@ export const databaseService = {
           databasesByEngine,
           currentPlan: 'Básico',
           maxDatabasesPerEngine: 2,
-          maxTotalDatabases: 12, // 2 por motor * 6 motores
+          maxTotalDatabases: 8, // 2 por motor * 4 motores (MySQL, PostgreSQL, MongoDB, SQLServer)
           monthlyPrice: 0,
           nextBillingDate: undefined
         };
@@ -128,7 +123,7 @@ export const databaseService = {
           databasesByEngine: {},
           currentPlan: 'Básico',
           maxDatabasesPerEngine: 2,
-          maxTotalDatabases: 12,
+          maxTotalDatabases: 8, // 2 por motor * 4 motores (MySQL, PostgreSQL, MongoDB, SQLServer)
           monthlyPrice: 0,
           nextBillingDate: undefined
         };
@@ -136,4 +131,3 @@ export const databaseService = {
     }
   }
 };
-

@@ -1,4 +1,4 @@
-﻿<template>
+﻿﻿<template>
   <div class="min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300">
     <!-- Navbar -->
     <Navbar />
@@ -86,29 +86,11 @@
             />
           </div>
 
-          <!-- Redis -->
-          <div class="flex flex-col items-center gap-3">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original-wordmark.svg"
-              alt="Redis"
-              class="w-20 h-20"
-            />
-          </div>
-
           <!-- SQL Server -->
           <div class="flex flex-col items-center gap-3">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain-wordmark.svg"
               alt="SQL Server"
-              class="w-20 h-20"
-            />
-          </div>
-
-          <!-- Cassandra -->
-          <div class="flex flex-col items-center gap-3">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cassandra/cassandra-original.svg"
-              alt="Cassandra"
               class="w-20 h-20"
             />
           </div>
@@ -126,6 +108,25 @@
 
         <!-- Componente de precios reutilizable -->
         <PricingSection />
+      </div>
+    </section>
+
+    <!-- Video Demo Section -->
+    <section class="container mx-auto px-6 py-20">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Mira Cómo Funciona</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">Descubre todas las funcionalidades de nuestra plataforma en acción.</p>
+      </div>
+      <div class="max-w-5xl mx-auto">
+        <div class="relative w-full" style="padding-bottom: 56.25%; height: 0;">
+          <iframe
+            class="absolute top-0 left-0 w-full h-full rounded-2xl shadow-2xl border-0"
+            src="https://www.youtube.com/embed/YRceKwVsJ9I"
+            title="Video Demostrativo de ApexDB"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
       </div>
     </section>
 

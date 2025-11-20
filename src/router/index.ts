@@ -4,8 +4,14 @@ import { useToast } from 'vue-toastification'
 import LandingView from '../views/LandingView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import ForgotPasswordView from '../views/ForgotPasswordView.vue'
+import ResetPasswordView from '../views/ResetPasswordView.vue'
+import VerifyEmailView from '../views/VerifyEmailView.vue'
 import DashboardView from '../views/DashboardView.vue'
+import DatabasesView from '../views/DatabasesView.vue'
 import PlansView from '../views/PlansView.vue'
+import AuditLogView from '../views/AuditLogView.vue'
+import ProfileView from '../views/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,16 +35,52 @@ const router = createRouter({
       meta: { layout: 'AuthLayout', requiresGuest: true, title: 'Registro' }
     },
     {
+      path: '/forgot-password',
+      name: 'forgot-password',
+      component: ForgotPasswordView,
+      meta: { layout: 'AuthLayout', requiresGuest: true, title: 'Recuperar contraseña' }
+    },
+    {
+      path: '/reset-password',
+      name: 'reset-password',
+      component: ResetPasswordView,
+      meta: { layout: 'AuthLayout', title: 'Restablecer contraseña' }
+    },
+    {
+      path: '/verify-email',
+      name: 'verify-email',
+      component: VerifyEmailView,
+      meta: { layout: 'AuthLayout', title: 'Verificar correo' }
+    },
+    {
       path: '/dashboard',
       name: 'dashboard',
       component: DashboardView,
       meta: { layout: 'AppLayout', requiresAuth: true, title: 'Panel de control' }
     },
     {
+      path: '/databases',
+      name: 'databases',
+      component: DatabasesView,
+      meta: { layout: 'AppLayout', requiresAuth: true, title: 'Mis Bases de Datos' }
+    },
+    {
       path: '/plans',
       name: 'plans',
       component: PlansView,
       meta: { layout: 'AppLayout', requiresAuth: true, title: 'Planes' }
+    },
+    {
+      path: '/audit-logs',
+      name: 'audit-logs',
+      component: AuditLogView,
+      meta: { layout: 'AppLayout', requiresAuth: true, title: 'Auditoría' }
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView,
+      meta: { layout: 'AppLayout', requiresAuth: true, title: 'Mi Perfil' }
     }
   ]
 })
