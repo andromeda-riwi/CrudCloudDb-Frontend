@@ -1,4 +1,4 @@
-﻿﻿<template>
+﻿git﻿﻿<template>
   <div class="container mx-auto max-w-7xl">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
       <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
@@ -226,8 +226,39 @@ const databasesByStatusChartData = computed(() => {
 
 // Load data on mount
 onMounted(async () => {
+  // Check if user is returning from a payment
+  await checkPaymentStatus();
+
   await Promise.all([loadDashboardStats(), loadDatabases()]);
 });
+
+// Check payment status from URL parameters
+const checkPaymentStatus = async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const paymentStatus = urlParams.get('payment_status');
+  const collectionStatus = urlParams.get('collection_status');
+
+  if (paymentStatus || collectionStatus) {
+    // Clean URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+
+    // Show appropriate message based on status
+    const status = collectionStatus || paymentStatus;
+
+    if (status === 'approved' || status === 'success') {
+      toast.success('¡Pago exitoso! Tu plan ha sido actualizado. Recargando información...');
+
+      // Wait a bit and reload stats to show updated plan
+      setTimeout(async () => {
+        await loadDashboardStats();
+      }, 2000);
+    } else if (status === 'pending') {
+      toast.info('Tu pago está pendiente de aprobación. Te notificaremos cuando se confirme.');
+    } else if (status === 'failure' || status === 'rejected') {
+      toast.error('El pago no pudo ser procesado. Por favor, intenta nuevamente.');
+    }
+  }
+};
 
 // Load dashboard statistics
 const loadDashboardStats = async () => {
