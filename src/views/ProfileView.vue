@@ -23,8 +23,7 @@
 
             <div class="sm:col-span-4">
               <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-              <input v-model="profileForm.email" type="email" class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-[#e1bc47] focus:border-[#e1bc47] dark:bg-gray-700 dark:text-white sm:text-sm">
-              <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Si cambias tu email, tendrás que verificarlo nuevamente.</p>
+              <input v-model="profileForm.email" type="email" disabled class="mt-1 block w-full bg-gray-100 dark:bg-gray-600 border border-gray-300 dark:border-gray-500 rounded-md shadow-sm py-2 px-3 text-gray-500 dark:text-gray-400 sm:text-sm cursor-not-allowed">
             </div>
 
             <div class="sm:col-span-2">
